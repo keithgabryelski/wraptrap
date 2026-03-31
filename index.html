@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WrapTrap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Splash Screen -->
+        <div id="splash-screen" class="screen">
+            <div class="splash-content">
+                <pre class="title-box">
+╔════════════════════════╗
+║    W R A P T R A P     ║
+║  by <a href="https://github.com/keithgabryelski">keithgabryelski</a>    ║
+╚════════════════════════╝
+</pre>
+                <div class="preview-container">
+                    <canvas id="preview-canvas" width="500" height="500"></canvas>
+                    <div class="preview-labels">
+                        <span class="label-green">GREEN</span>
+                        <span style="color: #888;"> vs </span>
+                        <span class="label-red">RED</span>
+                    </div>
+                </div>
+                <p class="tagline">Trap your opponent before they trap you!</p>
+                <div class="controls-info">
+                    <p>Controls:</p>
+                    <p>Arrow keys or WASD - Move</p>
+                    <p>p - Pause/Resume</p>
+                    <p>q - Quit</p>
+                </div>
+                <button id="start-button" class="action-button">Press SPACE to start</button>
+                <button id="options-button" class="secondary-button">Press O for options</button>
+            </div>
+        </div>
+
+        <!-- Options Screen -->
+        <div id="options-screen" class="screen hidden">
+            <div class="options-content">
+                <h1>OPTIONS</h1>
+                <div id="options-list">
+                    <div class="option-item" data-index="0">
+                        <span class="option-name">Grid Size:</span>
+                        <button class="option-choice" data-value="fixed">Fixed 30x30</button>
+                        <button class="option-choice" data-value="full">Full Width</button>
+                    </div>
+                    <div class="option-item" data-index="1">
+                        <span class="option-name">Edge Behavior:</span>
+                        <button class="option-choice" data-value="crash">Crash</button>
+                        <button class="option-choice" data-value="wrap">Wrap Around</button>
+                    </div>
+                    <div class="option-item" data-index="2">
+                        <span class="option-name">Growth Mode:</span>
+                        <button class="option-choice" data-value="periodic">Periodic</button>
+                        <button class="option-choice" data-value="continuous">Continuous</button>
+                    </div>
+                    <div class="option-item" data-index="3">
+                        <span class="option-name">Players:</span>
+                        <button class="option-choice" data-value="ai">Human vs AI</button>
+                        <button class="option-choice" data-value="2p">2-Player</button>
+                    </div>
+                </div>
+                <p class="options-help">↑/↓ to select, ←/→ to change, SPACE to start</p>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <div id="game-info">
+                <span id="player1-label">Human: <span id="player1-length">0</span></span>
+                <span id="frame-counter">Frame: <span id="frame-count">0</span></span>
+                <span id="player2-label">AI: <span id="player2-length">0</span></span>
+            </div>
+            <canvas id="game-canvas"></canvas>
+            <div id="game-status"></div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="screen hidden">
+            <div class="gameover-content">
+                <h1 id="winner-text">GAME OVER</h1>
+                <p id="final-stats"></p>
+                <button id="restart-button" class="action-button">Press R to restart</button>
+                <button id="quit-button" class="secondary-button">Press Q to quit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
