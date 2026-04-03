@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>WrapTrap</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,11 +28,16 @@
                     </div>
                 </div>
                 <p class="tagline">Trap your opponent before they trap you!</p>
-                <div class="controls-info">
+                <div class="controls-info desktop-controls">
                     <p>Controls:</p>
                     <p>Arrow keys or WASD - Move</p>
                     <p>p - Pause/Resume</p>
                     <p>q - Quit</p>
+                </div>
+                <div class="controls-info mobile-controls-info">
+                    <p>Controls:</p>
+                    <p>Swipe or use on-screen D-pad - Move</p>
+                    <p>Tap Pause button to pause</p>
                 </div>
                 <button id="start-button" class="action-button">Press SPACE to start</button>
                 <button id="options-button" class="secondary-button">Press O for options</button>
@@ -85,6 +92,19 @@
                 <p id="final-stats"></p>
                 <button id="restart-button" class="action-button">Press R to restart</button>
                 <button id="quit-button" class="secondary-button">Press Q to quit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Controls -->
+    <div id="mobile-controls">
+        <div class="control-group">
+            <button class="mobile-action-button" id="mobile-pause">Pause</button>
+            <div class="dpad">
+                <button class="dpad-button dpad-up" data-direction="up">▲</button>
+                <button class="dpad-button dpad-left" data-direction="left">◀</button>
+                <button class="dpad-button dpad-right" data-direction="right">▶</button>
+                <button class="dpad-button dpad-down" data-direction="down">▼</button>
             </div>
         </div>
     </div>

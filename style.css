@@ -62,6 +62,8 @@ body {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    max-width: 90vw;
+    height: auto;
 }
 
 .preview-labels {
@@ -218,11 +220,99 @@ body {
     margin: 30px 0;
 }
 
+/* Mobile Controls */
+.mobile-controls-info {
+    display: none;
+}
+
+.desktop-controls {
+    display: block;
+}
+
+#mobile-controls {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#mobile-controls.active {
+    pointer-events: auto;
+}
+
+.control-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.dpad {
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: 60px 60px 60px;
+    gap: 5px;
+}
+
+.dpad-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dpad-button:active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.dpad-up { grid-column: 2; grid-row: 1; }
+.dpad-left { grid-column: 1; grid-row: 2; }
+.dpad-right { grid-column: 3; grid-row: 2; }
+.dpad-down { grid-column: 2; grid-row: 3; }
+
+.mobile-action-button {
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    height: 60px;
+    min-width: 80px;
+}
+
+.mobile-action-button:active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
-    #preview-canvas {
-        max-width: 90vw;
-        height: auto;
+    .desktop-controls {
+        display: none;
+    }
+
+    .mobile-controls-info {
+        display: block;
     }
 
     .preview-labels {
@@ -240,7 +330,32 @@ body {
     }
 
     .title-box {
-        font-size: 1em;
+        font-size: 0.9em;
+    }
+
+    .controls-info {
+        font-size: 0.9em;
+    }
+
+    #mobile-controls {
+        display: block;
+    }
+
+    #game-canvas {
+        max-height: 50vh;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    #game-screen {
+        padding: 10px 10px 220px 10px;
+    }
+
+    #game-info {
+        font-size: 0.9em;
+        padding: 8px 12px;
     }
 }
 

@@ -57,6 +57,7 @@ class WrapTrap {
 
   init() {
     this.setupEventListeners();
+    this.setupTouchControls();
     this.showScreen("splash-screen");
     this.drawPreview();
   }
@@ -83,6 +84,124 @@ class WrapTrap {
     document.querySelectorAll(".option-choice").forEach((btn) => {
       btn.addEventListener("click", (e) => this.handleOptionClick(e));
     });
+  }
+
+  setupTouchControls() {
+    // Touch state for swipe detection
+    this.touchStartX = 0;
+    this.touchStartY = 0;
+    this.touchEndX = 0;
+    this.touchEndY = 0;
+    this.minSwipeDistance = 30;
+
+    // Swipe controls on canvas
+    this.canvas.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        this.touchStartX = touch.clientX;
+        this.touchStartY = touch.clientY;
+      },
+      { passive: false },
+    );
+
+    this.canvas.addEventListener(
+      "touchend",
+      (e) => {
+        e.preventDefault();
+        const touch = e.changedTouches[0];
+        this.touchEndX = touch.clientX;
+        this.touchEndY = touch.clientY;
+        this.handleSwipe();
+      },
+      { passive: false },
+    );
+
+    // D-pad buttons
+    document.querySelectorAll(".dpad-button").forEach((btn) => {
+      btn.addEventListener(
+        "touchstart",
+        (e) => {
+          e.preventDefault();
+          const direction = e.target.dataset.direction;
+          this.handleDpadPress(direction);
+        },
+        { passive: false },
+      );
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const direction = e.target.dataset.direction;
+        this.handleDpadPress(direction);
+      });
+    });
+
+    // Mobile pause button
+    const mobilePauseBtn = document.getElementById("mobile-pause");
+    mobilePauseBtn.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault();
+        this.togglePause();
+      },
+      { passive: false },
+    );
+
+    mobilePauseBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.togglePause();
+    });
+  }
+
+  handleSwipe() {
+    if (this.state !== GameState.PLAYING || this.paused) return;
+
+    const deltaX = this.touchEndX - this.touchStartX;
+    const deltaY = this.touchEndY - this.touchStartY;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
+
+    // Check if swipe is long enough
+    if (Math.max(absDeltaX, absDeltaY) < this.minSwipeDistance) return;
+
+    // Determine swipe direction
+    if (absDeltaX > absDeltaY) {
+      // Horizontal swipe
+      if (deltaX > 0) {
+        this.changeDirection(this.player1, DIR.RIGHT);
+      } else {
+        this.changeDirection(this.player1, DIR.LEFT);
+      }
+    } else {
+      // Vertical swipe
+      if (deltaY > 0) {
+        this.changeDirection(this.player1, DIR.DOWN);
+      } else {
+        this.changeDirection(this.player1, DIR.UP);
+      }
+    }
+  }
+
+  handleDpadPress(direction) {
+    if (this.state !== GameState.PLAYING || this.paused) return;
+
+    const player = this.twoPlayerMode ? this.player2 : this.player1;
+
+    switch (direction) {
+      case "up":
+        this.changeDirection(player, DIR.UP);
+        break;
+      case "down":
+        this.changeDirection(player, DIR.DOWN);
+        break;
+      case "left":
+        this.changeDirection(player, DIR.LEFT);
+        break;
+      case "right":
+        this.changeDirection(player, DIR.RIGHT);
+        break;
+    }
   }
 
   handleKeyPress(e) {
@@ -279,8 +398,13 @@ class WrapTrap {
     this.updateInfo();
     this.render();
 
+    // Show mobile controls
+    document.getElementById("mobile-controls").classList.add("active");
+
     // Start game loop
-    if (this.gameLoop) clearInterval(this.gameLoop);
+    if (this.gameLoop) {
+      clearInterval(this.gameLoop);
+    }
     this.gameLoop = setInterval(() => this.update(), TICK_PERIOD);
   }
 
@@ -646,13 +770,20 @@ class WrapTrap {
   togglePause() {
     this.paused = !this.paused;
     const statusElement = document.getElementById("game-status");
+    const mobilePauseBtn = document.getElementById("mobile-pause");
+    const isMobile = window.innerWidth <= 768;
+
     if (this.paused) {
-      statusElement.innerHTML =
-        '<div style="font-size: 2em; margin: 20px 0;">⏸ PAUSED ⏸</div><div>Press P to continue</div>';
+      const resumeText = isMobile
+        ? '<div style="font-size: 2em; margin: 20px 0;">⏸ PAUSED ⏸</div><div>Tap Resume to continue</div>'
+        : '<div style="font-size: 2em; margin: 20px 0;">⏸ PAUSED ⏸</div><div>Press P to continue</div>';
+      statusElement.innerHTML = resumeText;
       document.getElementById("game-screen").classList.add("paused");
+      mobilePauseBtn.textContent = "Resume";
     } else {
       statusElement.textContent = "";
       document.getElementById("game-screen").classList.remove("paused");
+      mobilePauseBtn.textContent = "Pause";
     }
   }
 
@@ -683,6 +814,8 @@ class WrapTrap {
     if (this.gameLoop) {
       clearInterval(this.gameLoop);
     }
+    // Hide mobile controls
+    document.getElementById("mobile-controls").classList.remove("active");
     this.showScreen("splash-screen");
   }
 
@@ -691,6 +824,8 @@ class WrapTrap {
     if (this.gameLoop) {
       clearInterval(this.gameLoop);
     }
+    // Hide mobile controls
+    document.getElementById("mobile-controls").classList.remove("active");
     this.showScreen("splash-screen");
   }
 
