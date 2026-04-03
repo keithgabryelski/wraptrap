@@ -247,24 +247,25 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    margin-bottom: 10px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    gap: 15px;
 }
 
 .dpad {
     display: grid;
-    grid-template-columns: 60px 60px 60px;
-    grid-template-rows: 60px 60px 60px;
-    gap: 5px;
+    grid-template-columns: 70px 70px 70px;
+    grid-template-rows: 70px 70px 70px;
+    gap: 8px;
 }
 
 .dpad-button {
     background-color: rgba(255, 255, 255, 0.2);
-    border: 2px solid #fff;
+    border: 3px solid #fff;
     color: #fff;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
@@ -273,10 +274,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 70px;
+    min-height: 70px;
 }
 
 .dpad-button:active {
     background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(0.95);
 }
 
 .dpad-up { grid-column: 2; grid-row: 1; }
@@ -285,24 +289,25 @@ body {
 .dpad-down { grid-column: 2; grid-row: 3; }
 
 .mobile-action-button {
-    padding: 15px 20px;
+    padding: 20px 25px;
     background-color: rgba(255, 255, 255, 0.2);
-    border: 2px solid #fff;
+    border: 3px solid #fff;
     color: #fff;
     font-family: 'Courier New', monospace;
-    font-size: 0.9em;
-    border-radius: 8px;
+    font-size: 1.1em;
+    border-radius: 12px;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
-    height: 60px;
-    min-width: 80px;
+    height: 70px;
+    min-width: 100px;
 }
 
 .mobile-action-button:active {
     background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(0.95);
 }
 
 /* Responsive */
@@ -350,12 +355,30 @@ body {
     }
 
     #game-screen {
-        padding: 10px 10px 220px 10px;
+        padding: 10px 10px 280px 10px;
     }
 
     #game-info {
         font-size: 0.9em;
         padding: 8px 12px;
+    }
+
+    .dpad-button {
+        min-width: 80px;
+        min-height: 80px;
+        font-size: 36px;
+    }
+
+    .dpad {
+        grid-template-columns: 80px 80px 80px;
+        grid-template-rows: 80px 80px 80px;
+        gap: 10px;
+    }
+
+    .mobile-action-button {
+        height: 80px;
+        min-width: 110px;
+        font-size: 1.2em;
     }
 }
 
