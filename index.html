@@ -69,6 +69,36 @@
                         <button class="option-choice" data-value="ai">Human vs AI</button>
                         <button class="option-choice" data-value="2p">2-Player</button>
                     </div>
+                    <div class="option-item" data-index="4">
+                        <span class="option-name">Start Speed:</span>
+                        <button class="option-choice" data-value="slow">Slow</button>
+                        <button class="option-choice" data-value="normal">Normal</button>
+                        <button class="option-choice" data-value="fast">Fast</button>
+                    </div>
+                    <div class="option-item" data-index="5">
+                        <span class="option-name">Speed Increase:</span>
+                        <button class="option-choice" data-value="off">Off</button>
+                        <button class="option-choice" data-value="gradual">Gradual</button>
+                        <button class="option-choice" data-value="rapid">Rapid</button>
+                    </div>
+                    <div class="option-item" data-index="6">
+                        <span class="option-name">Starting Difficulty:</span>
+                        <button class="option-choice" data-value="novice">Novice</button>
+                        <button class="option-choice" data-value="skilled">Skilled</button>
+                        <button class="option-choice" data-value="expert">Expert</button>
+                        <button class="option-choice" data-value="master">Master</button>
+                    </div>
+                    <div class="option-item" data-index="7">
+                        <span class="option-name">Difficulty Increase:</span>
+                        <button class="option-choice" data-value="off">Off</button>
+                        <button class="option-choice" data-value="gradual">Every 30s</button>
+                        <button class="option-choice" data-value="rapid">Every 15s</button>
+                    </div>
+                    <div class="option-item" data-index="8">
+                        <span class="option-name">Game Info:</span>
+                        <button class="option-choice" data-value="hide">Hidden</button>
+                        <button class="option-choice" data-value="show">Shown</button>
+                    </div>
                 </div>
                 <p class="options-help">↑/↓ to select, ←/→ to change, SPACE to start</p>
             </div>
@@ -76,23 +106,22 @@
 
         <!-- Game Screen -->
         <div id="game-screen" class="screen hidden">
-            <div id="game-info">
+            <div id="game-info" class="hidden">
                 <span id="player1-label">Human: <span id="player1-length">0</span></span>
                 <span id="frame-counter">Frame: <span id="frame-count">0</span></span>
+                <span id="difficulty-label">Difficulty: <span id="difficulty-level">Skilled</span></span>
                 <span id="player2-label">AI: <span id="player2-length">0</span></span>
             </div>
-            <canvas id="game-canvas"></canvas>
-            <div id="game-status"></div>
-        </div>
-
-        <!-- Game Over Screen -->
-        <div id="gameover-screen" class="screen hidden">
-            <div class="gameover-content">
-                <h1 id="winner-text">GAME OVER</h1>
-                <p id="final-stats"></p>
-                <button id="restart-button" class="action-button">Press R to restart</button>
-                <button id="quit-button" class="secondary-button">Press Q to quit</button>
+            <div id="game-board">
+                <canvas id="game-canvas"></canvas>
+                <div id="gameover-panel" class="gameover-content hidden" role="status" aria-live="polite">
+                    <h1 id="winner-text">GAME OVER</h1>
+                    <p id="final-stats"></p>
+                    <button id="restart-button" class="action-button">Restart (R)</button>
+                    <button id="quit-button" class="secondary-button">Quit (Q)</button>
+                </div>
             </div>
+            <div id="game-status"></div>
         </div>
     </div>
 
